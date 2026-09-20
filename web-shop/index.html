@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ягодная лавка</title>
+    <link rel="stylesheet" href="style.css" />
+    <script src="script.js" defer></script>
+  </head>
+
+  <body id="top">
+    <!-- Шапка -->
+    <!-- Логотип -->
+    <header class="site-header">
+      <div class="site-header__inner">
+        <a
+          class="logo"
+          href="#top"
+          aria-label="Ягодная лавка - перейти на главную"
+        >
+          <span class="logo__icon" aria-hidden="true">🍓</span>
+          <span class="logo__text">Ягодная <br />лавка</span>
+        </a>
+        <!-- Форма поиска -->
+        <form class="search" id="search-form" role="search">
+          <label class="visually-hidden" for="search-input">
+            Поиск товаров
+          </label>
+          <span class="search__icon" aria-hidden="true">⌕</span>
+          <input
+            class="search__input"
+            id="search-input"
+            name="search"
+            type="search"
+            placeholder="Найти варенье"
+            autocomplete="off"
+          />
+        </form>
+        <!-- Адрес доставки -->
+        <div class="delivery_info">
+          <span class="delivery-info__icon" aria-hidden="true">⌖</span>
+          <span class="delivery-info__text">
+            <strong>Укажите адрес доставки</strong>
+            <small>от 45 минут</small>
+          </span>
+        </div>
+        <!-- Номер для связи -->
+        <a class="phone" href="tel:+78888888888">8 888 888-88-88</a>
+        <button
+          class="cart-button"
+          id="open-cart-button"
+          type="button"
+          aria-label="Открыть корзину"
+        >
+          <span class="cart-button__icon" aria-hidden="true">🧺</span>
+          <span class="cart-button__text">
+            <strong id="header-cart-total">0 ₽</strong>
+            <small><span id="header-cart-count">0</span>шт.</small>
+          </span>
+        </button>
+      </div>
+    </header>
+  </body>
+</html>
