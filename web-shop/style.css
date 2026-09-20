@@ -1,0 +1,309 @@
+/* =========================================================
+   1. Общие настройки и переменные
+   ========================================================= */
+
+:root {
+  --color-primary: #b5365a;
+  --color-primary-dark: #65172f;
+  --color-accent: #e8b44f;
+  --color-text: #2b1820;
+  --color-surface: #fffbf8;
+  --color-background: #f7efea;
+
+  --radius-small: 10px;
+
+  --page-width: 1600px;
+  --transition: 180ms ease;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  min-width: 320px;
+  margin: 0;
+
+  color: var(--color-text);
+  background: var(--color-background);
+
+  font-family: Arial, Helvetica, sans-serif;
+  line-height: 1.5;
+}
+
+button,
+input {
+  font: inherit;
+}
+
+button,
+a {
+  -webkit-tap-highlight-color: transparent;
+}
+
+button {
+  color: inherit;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button:focus-visible,
+a:focus-visible,
+input:focus-visible {
+  outline: 3px solid var(--color-accent);
+  outline-offset: 3px;
+}
+
+.visually-hidden {
+  position: absolute;
+
+  width: 1px;
+  height: 1px;
+
+  padding: 0;
+  margin: -1px;
+
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+
+  border: 0;
+}
+
+/* =========================================================
+   2. Верхняя шапка
+   ========================================================= */
+
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+
+  color: #ffffff;
+
+  background: linear-gradient(
+    90deg,
+    #481225 0%,
+    var(--color-primary-dark) 45%,
+    var(--color-primary) 100%
+  );
+
+  box-shadow: 0 4px 20px rgba(72, 18, 37, 0.22);
+}
+
+.site-header__inner {
+  display: grid;
+
+  width: min(calc(100% - 40px), var(--page-width));
+  min-height: 82px;
+
+  grid-template-columns:
+    160px
+    minmax(230px, 380px)
+    minmax(260px, 1fr)
+    auto
+    auto;
+
+  align-items: center;
+  gap: 24px;
+
+  margin-inline: auto;
+}
+
+/* =========================================================
+   3. Логотип
+   ========================================================= */
+
+.logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+
+  font-size: 20px;
+  font-weight: 900;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.logo__icon {
+  font-size: 40px;
+  line-height: 1;
+
+  filter: drop-shadow(0 4px 7px rgba(45, 7, 22, 0.28));
+}
+
+/* =========================================================
+   4. Поиск
+   ========================================================= */
+
+.search {
+  display: flex;
+
+  min-width: 0;
+  height: 50px;
+
+  align-items: center;
+  gap: 8px;
+
+  padding-inline: 16px;
+
+  color: var(--color-text);
+  background: var(--color-surface);
+
+  border-radius: var(--radius-small);
+}
+
+.search:focus-within {
+  box-shadow: 0 0 0 3px rgba(255, 207, 90, 0.9);
+}
+
+.search__icon {
+  color: var(--color-primary-dark);
+
+  font-size: 31px;
+  line-height: 1;
+
+  transform: rotate(-20deg);
+}
+
+.search__input {
+  width: 100%;
+  min-width: 0;
+
+  padding: 0;
+
+  color: var(--color-text);
+  background: transparent;
+
+  border: 0;
+  outline: 0;
+}
+
+.search__input::placeholder {
+  color: #8d777f;
+}
+
+/* =========================================================
+   5. Информация о доставке
+   ========================================================= */
+
+.delivery-info {
+  display: flex;
+
+  min-width: 0;
+  min-height: 54px;
+
+  align-items: center;
+  gap: 12px;
+
+  padding: 10px 16px;
+
+  background: rgba(255, 255, 255, 0.12);
+  border-radius: var(--radius-small);
+
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1.25;
+}
+
+.delivery-info__icon {
+  flex-shrink: 0;
+
+  font-size: 26px;
+  line-height: 1;
+}
+
+.delivery-info__text {
+  min-width: 0;
+}
+
+.delivery-info small {
+  display: block;
+  margin-top: 3px;
+  color: rgba(255, 255, 255, 0.76);
+  font-size: 12px;
+  font-weight: 400;
+}
+
+/* =========================================================
+   6. Телефон
+   ========================================================= */
+
+.phone {
+  white-space: nowrap;
+
+  font-size: 15px;
+  font-weight: 700;
+
+  transition: color var(--transition);
+}
+
+.phone:hover {
+  color: #ffd4df;
+}
+
+/* =========================================================
+   7. Корзина
+   ========================================================= */
+
+.cart-button {
+  display: flex;
+
+  min-width: 112px;
+  min-height: 54px;
+
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+
+  padding: 8px 13px;
+
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.12);
+
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: var(--radius-small);
+
+  cursor: pointer;
+
+  transition: background-color var(--transition);
+}
+
+.cart-button:hover {
+  background: rgba(255, 255, 255, 0.22);
+}
+
+.cart-button__icon {
+  flex-shrink: 0;
+
+  font-size: 25px;
+  line-height: 1;
+}
+
+.cart-button__text {
+  display: flex;
+  flex-direction: column;
+
+  align-items: flex-start;
+
+  line-height: 1.15;
+}
+
+.cart-button__text strong {
+  font-size: 15px;
+}
+
+.cart-button__text small {
+  color: rgba(255, 255, 255, 0.74);
+
+  font-size: 12px;
+}
