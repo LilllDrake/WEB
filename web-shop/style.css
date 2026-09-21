@@ -95,7 +95,15 @@ input:focus-visible {
   border: 0;
 }
 
-
+/* состояниии при наведении и фокусе */
+.flavor-hero__button:hover,
+.flavor-hero__button:focus-visible {
+  color: #ffffff;
+  background-color: transparent;
+  border-color: rgba(255, 255, 255, 0.8);
+  transform: translateY(-2px);
+  box-shadow: 0 12px 24px rgba(58, 9, 28, 0.25);
+}
 
 
 
@@ -454,3 +462,97 @@ input:focus-visible {
   border: 1px solid var(--color-border);
   border-radius: var(--radius-medium);
 }
+
+/* Большой рекламный баннер */
+
+.content {
+  min-width: 0;
+  padding: 42px;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-medium);
+}
+
+.flavor-hero {
+  --hero-color-dark: #4b1027;
+  --hero-color-main: #a92e55;
+  --hero-color-light: #e37c93;
+
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(300px, 0.95fr);
+
+  align-items: center;
+  gap: clamp(24px, 4vw, 72px);
+  min-height: 540px;
+  padding: clamp(32px, 5vw, 72px);
+  overflow: hidden;
+  color: #ffffff;
+
+  background: linear-gradient(135deg, var(--hero-color-dark) 0%, var(--hero-color-main) 58%, var(--hero-color-light) 100%);
+  border-radius: 24px;
+  box-shadow: 0 22px 50px rgba(75, 16, 39, 0.40);
+}
+
+.flavor-hero__content {
+  position: relative;
+  z-index: 2;
+  max-width: 560px;
+}
+
+.flavor-hero__type {
+  display: inline-block;
+  margin: 0 0 18px;
+  padding: 8px 14px;
+
+  color: #ffffff;
+  background-color: rgba(255,255, 255, 0.16);
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  border-radius: 999px;
+
+  font-size: 14px; /* размер текста */
+  font-weight: 700; /* жирный текст, если 400 - обычный */
+  letter-spacing: 0.12em; /* увеличение расстояние между буквами*/
+  text-transform: uppercase;
+}
+
+.flavor-hero__title {
+  margin: 0 0 20px;
+  font-size: clamp(42px, 5vw, 76px);
+  line-height: 0.98;
+  letter-spacing: -0.04em;
+}
+
+.flavor-hero__description {
+  max-width: 500px;
+  margin: 0 0 26px;
+  color: rgba(255, 255, 255, 0.86);
+  font-size: clamp(16px, 1.6vw, 20px);
+  line-height: 1.55;
+}
+
+.flavor-hero__price {
+  margin: 0 0 28px;
+  font-size: clamp(28px, 3vw, 42px);
+  font-weight: 800;
+}
+
+.flavor-hero__button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 52px;
+  color: var(--hero-color-dark);
+  padding: 12px 24px;
+  background-color: #ffffff;
+  border: 2px solid transparent;
+  border-radius: 999px;
+  font-weight: 700;
+  text-decoration: none;
+  cursor: pointer;
+  transition:
+    color 200ms ease,
+    background-color 200ms ease,
+    transform 200ms ease,
+    box-shadow 200ms ease;
+} 
