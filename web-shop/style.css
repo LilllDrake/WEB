@@ -95,6 +95,10 @@ input:focus-visible {
   border: 0;
 }
 
+/*===============================================
+  НАВЕДЕНИЕ
+  ============================================= */
+
 /* состояниии при наведении и фокусе */
 .flavor-hero__button:hover,
 .flavor-hero__button:focus-visible {
@@ -103,6 +107,36 @@ input:focus-visible {
   border-color: rgba(255, 255, 255, 0.8);
   transform: translateY(-2px);
   box-shadow: 0 12px 24px rgba(58, 9, 28, 0.25);
+}
+
+/* состояние эффекта при наведении */
+.flavor-hero__picture:hover
+  .flavor-hero__glow {
+  opacity: 0.82;
+  transform: scale(1.22);
+}
+
+/* состояние при наведении на картинку */
+.flavor-hero__picture:hover
+  .flavor-hero__image {
+  transform: translateY(-8px) scale(1.045); /* поднятие и увеличение */
+
+  filter: drop-shadow(
+    0 36px 32px rgba(42, 5, 20, 0.45)
+  );
+}
+
+/* при изменении картинки */
+.flavor-hero__image.is-changing {
+  opacity: 0;
+  transform: scale(0.94);
+}
+
+/* состояние при наведении на кнопку */
+.flavor-hero__flavor:hover {
+  color: #ffffff;
+  background-color: rgba(255, 255, 255, 0.16);
+  border-color: rgba(255, 255, 255, 0.6);
 }
 
 
@@ -556,3 +590,171 @@ input:focus-visible {
     transform 200ms ease,
     box-shadow 200ms ease;
 } 
+
+.flavor-hero__visual {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  place-items: center;
+  min-width: 0;
+  min-height: 500px;
+}
+
+.flavor-hero__picture {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  place-items: center;
+  width: min(58%, 340px);
+  min-width: 260px;
+}
+
+.flavor-hero__glow {
+  position: absolute;
+  z-index: -1;
+
+  width: 90%;
+  aspect-ratio: 1;
+
+  background-color: var(--hero-glow-color, #ff6d9a);
+
+  border-radius: 50%;
+  opacity: 0.35;
+  filter: blur(55px);
+  transform: scale(0.9);
+
+  transition:
+    opacity 350ms ease,
+    transform 350ms ease,
+    background-color 500ms ease;
+}
+
+.flavor-hero__image {
+  position: relative;
+  z-index: 2;
+
+  display: block;
+  width: 100%;
+  height: auto;
+
+  object-fit: contain;
+
+  filter: drop-shadow(
+    0 28px 24px rgba(42, 5, 20, 0.3)
+  );
+
+  opacity: 1;
+
+  transition:
+    opacity 220ms ease,
+    transform 350ms ease,
+    filter 350ms ease;
+
+}
+
+.flavor-hero__flavors {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  pointer-events: none;
+}
+
+.flavor-hero__flavor {
+  position: absolute;
+
+  max-width: 150px;
+  padding: 9px 14px;
+
+  color: rgba(255, 255, 255, 0.78);
+  background-color: rgba(70, 8, 32, 0.34);
+
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  border-radius: 999px;
+
+  font: inherit;
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 1.2;
+  text-align: center;
+
+  cursor: pointer;
+  pointer-events: auto;
+
+  backdrop-filter: blur(10px);
+
+  transition:
+    color 250ms ease,
+    background-color 250ms ease,
+    border-color 250ms ease,
+    box-shadow 250ms ease,
+    opacity 250ms ease;
+}
+
+.flavor-hero__flavor.is-active {
+  color: var(--hero-color-dark);
+  background-color: #ffffff;
+  border-color: #ffffff;
+
+  box-shadow: 
+    0 0 0 5px rgba(255, 255, 255, 0.12),
+    0 0 28px var(--hero-glow-color, #ff6d9a);
+
+  animation: active-flavor-glow 1.8s ease-in-out infinite;
+}
+/* описание анимированного свечения для работающих кнопок */
+@keyframes active-flavor-glow {
+  0%,
+  100% {
+    box-shadow:
+      0 0 0 5px rgba(255, 255, 255, 0.1),
+      0 0 18px var(--hero-glow-color, #ff6d9a);
+  }
+
+  50% {
+    box-shadow:
+      0 0 0 8px rgba(255, 255, 255, 0.18),
+      0 0 36px var(--hero-glow-color, #ff6d9a);
+  }
+}
+
+/* описаине расположения кнопок над банками */
+.flavor-hero__flavor:nth-child(1) {
+  top: 10%;
+  left: 50%;
+  transform: translateX(-50%);
+}
+.flavor-hero__flavor:nth-child(2) {
+  top: 20%;
+  left: 90%;
+  transform: translateX(-50%);
+}
+.flavor-hero__flavor:nth-child(3) {
+  top: 47%;
+  left: 98%;
+  transform: translateX(-50%);
+}
+.flavor-hero__flavor:nth-child(4) {
+  top: 75%;
+  left: 90%;
+  transform: translateX(-50%);
+}
+.flavor-hero__flavor:nth-child(5) {
+  top: 85%;
+  left: 50%;
+  transform: translateX(-50%);
+}
+.flavor-hero__flavor:nth-child(6) {
+  top: 75%;
+  left: 10%;
+  transform: translateX(-50%);
+}
+.flavor-hero__flavor:nth-child(7) {
+  top: 47%;
+  left: 2%;
+  transform: translateX(-50%);
+}
+.flavor-hero__flavor:nth-child(8) {
+  top: 20%;
+  left: 10%;
+  transform: translateX(-50%);
+}

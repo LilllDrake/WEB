@@ -101,13 +101,13 @@
               Варенье
             </p>
             <h1 class="flavor-hero__title" id="hero-title">
-              Малиновое
+              Яблоко и корица
             </h1>
             <p class="flavor-hero__description" id="hero-description">
-              Густое варенье из спелой малины с лёгкой ягодной кислинкой
+              Янтарное варенье с кусочками яблок и тёплым ароматом корицы
             </p>
             <p class="flavor-hero__price" id="hero-price">
-              390 ₽
+              380 ₽
             </p>
             <a class="flavor-hero__button" id="hero-button" href="#catalog">
               Смотреть в каталоге
@@ -116,10 +116,25 @@
 
           <!-- Банка и названия вкусов -->
           <div class="flavor-hero__visual"> 
-            
+            <!-- севечние и банка-->
+            <div class="flavor-hero__picture">
+              <span class="flavor-hero__glow" aria-hidden="true"></span>
+              <img class="flavor-hero__image" id="hero-image" src="images/hero-apple-cinnamon.png" alt="Банка яблочного варенья с корицей" width="1200" height="1200"/>
+            </div>
+            <!-- кнопки вкусов -->
+            <div class="flavor-hero__flavors" id="hero-flavors" role="group" aria-label="Выберите вкус">
+              <button class="flavor-hero__flavor is-active" type="button" data-hero-index="0" aria-pressed="true">Яблоко и корица</button>
+              <button class="flavor-hero__flavor" type="button" data-hero-index="1" aria-pressed="false">Клубника</button>
+              <button class="flavor-hero__flavor" type="button" data-hero-index="2" aria-pressed="false">Облепиха</button>
+              <button class="flavor-hero__flavor" type="button" data-hero-index="3" aria-pressed="false">Смородина</button>
+              <button class="flavor-hero__flavor" type="button" data-hero-index="4" aria-pressed="false">Сосновые шишки</button>
+              <button class="flavor-hero__flavor" type="button" data-hero-index="5" aria-pressed="false">Малина</button>
+              <button class="flavor-hero__flavor" type="button" data-hero-index="6" aria-pressed="false">Вишня</button>
+              <button class="flavor-hero__flavor" type="button" data-hero-index="7" aria-pressed="false">Черника</button>
+            </div>
           </div>
        </section>
-
-    </main>
+      </main>
+    </div>
   </body>
 </html>
