@@ -201,51 +201,51 @@ startHeroTimer();
 
 // добавление карточек товаров
 const products = [
-  { title: "Яблочные чипсы", image: "images/apple-chips.jpeg", price: 280, category: "Фруктовые снеки", weight: "80 г", 
+  { id: 1, title: "Яблочные чипсы", image: "images/apple-chips.jpeg", price: 280, category: "Фруктовые снеки", weight: "80 г", 
     description: "Хрустящие яблочные дольки с лёгким ароматом корицы" },
-  { title: "Яблоко и корица", image: "images/apple-cinnamon-jam.png", price: 380, category: "Варенье", weight: "250 г", 
+  { id: 2,title: "Яблоко и корица", image: "images/apple-cinnamon-jam.png", price: 380, category: "Варенье", weight: "250 г", 
     description: "Ароматное янтарное варенье с кусочками яблок и пряной корицей" },
-  { title: "Ягодный мармелад", image: "images/berry-marmalade.jpeg", price: 320, category: "Мармелад и пастила", weight: "180 г", 
+  { id: 3,title: "Ягодный мармелад", image: "images/berry-marmalade.jpeg", price: 320, category: "Мармелад и пастила", weight: "180 г", 
     description: "Мягкий мармелад из малины, смородины и черники" },
-  { title: "Варенье из чёрной смородины", image: "images/blackcurrant-jam.jpeg", price: 440, category: "Варенье", weight: "250 г", 
+  { id: 4,title: "Варенье из чёрной смородины", image: "images/blackcurrant-jam.jpeg", price: 440, category: "Варенье", weight: "250 г", 
     description: "Густое варенье из чёрной смородины с глубоким ягодным вкусом и лёгкой кислинкой" },
-  { title: "Черничный конфитюр", image: "images/blueberry-confiture.png", price: 450, category: "Джемы и конфитюры", weight: "220 г", 
+  { id: 5,title: "Черничный конфитюр", image: "images/blueberry-confiture.png", price: 450, category: "Джемы и конфитюры", weight: "220 г", 
     description: "Нежный конфитюр из лесной черники с однородной текстурой" },
-  { title: "Вишнёвое варенье", image: "images/cherry-jam.png", price: 420, category: "Варенье", weight: "250 г", 
+  { id: 6,title: "Вишнёвое варенье", image: "images/cherry-jam.png", price: 420, category: "Варенье", weight: "250 г", 
     description: "Ароматное варенье из сочной вишни с насыщенным вкусом" },
-  { title: "Подарочный набор", image: "images/gift-set.jpeg", price: 1290, category: "Подарочные наборы", weight: "3 банки по 120 г", 
+  { id: 7,title: "Подарочный набор", image: "images/gift-set.jpeg", price: 1290, category: "Подарочные наборы", weight: "3 банки по 120 г", 
     description: "Малиновое, черничное и шишечное варенье в подарочной коробке" },
-  { title: "Лимон и имбирь", image: "images/lemon-ginger-jam.jpeg", price: 430, category: "Варенье", weight: "250 г", 
+  { id: 8,title: "Лимон и имбирь", image: "images/lemon-ginger-jam.jpeg", price: 430, category: "Варенье", weight: "250 г", 
     description: "Яркое цитрусовое варенье с кусочками лимона и лёгкой имбирной остротой" },
-  { title: "Брусничное варенье", image: "images/lingonberry-jam.png", price: 460, category: "Варенье", weight: "250 г", 
+  { id: 9,title: "Брусничное варенье", image: "images/lingonberry-jam.png", price: 460, category: "Варенье", weight: "250 г", 
     description: "Ароматное варенье из лесной брусники с выразительным кисло-сладким вкусом" },
-  { title: "Манго и маракуйя", image: "images/mango-passionfruit-confiture.jpeg", price: 520, category: "Джемы и конфитюры", weight: "220 г",
+  { id: 10,title: "Манго и маракуйя", image: "images/mango-passionfruit-confiture.jpeg", price: 520, category: "Джемы и конфитюры", weight: "220 г",
     description: "Яркий тропический конфитюр из спелого манго и ароматной маракуйи",
     tags: ["Необычные вкусы"], },
-  { title: "Груша и розмарин", image: "images/pear-rosemary-jam.jpeg", price: 490, category: "Варенье", weight: "250 г", 
+  { id: 11,title: "Груша и розмарин", image: "images/pear-rosemary-jam.jpeg", price: 490, category: "Варенье", weight: "250 г", 
     description: "Золотистое варенье с кусочками спелой груши и тонким ароматом розмарина",
     tags: ["Необычные вкусы"], },
-  { title: "Варенье из сосновых шишек", image: "images/pine-cone-jam.png", price: 490, category: "Варенье", weight: "220 г", 
+  { id: 12,title: "Варенье из сосновых шишек", image: "images/pine-cone-jam.png", price: 490, category: "Варенье", weight: "220 г", 
     description: "Необычное лесное варенье с хвойным ароматом и мягким смолистым вкусом",
     tags: ["Необычные вкусы"], },
-  { title: "Слива и шоколад", image: "images/plum-chocolate-confiture.jpeg", price: 540, category: "Джемы и конфитюры", weight: "220 г", 
+  { id: 13,title: "Слива и шоколад", image: "images/plum-chocolate-confiture.jpeg", price: 540, category: "Джемы и конфитюры", weight: "220 г", 
     description: "Густой сливовый конфитюр с глубоким вкусом тёмного шоколада",
     tags: ["Необычные вкусы"], },
-  { title: "Малиновое варенье", image: "images/raspberry-jam.png", price: 390, category: "Варенье", weight: "250 г", 
+  { id: 14,title: "Малиновое варенье", image: "images/raspberry-jam.png", price: 390, category: "Варенье", weight: "250 г", 
     description: "Густое варенье из спелой малины с лёгкой ягодной кислинкой" },
-  { title: "Брусничный соус", image: "images/lingonberry-sauce.jpeg", price: 390, category: "Соусы и чатни", weight: "200 г", 
+  { id: 15,title: "Брусничный соус", image: "images/lingonberry-sauce.jpeg", price: 390, category: "Соусы и чатни", weight: "200 г", 
     description: "Кисло-сладкий ягодный соус для сыра, птицы и горячих блюд" },
-  { title: "Малина и роза", image: "images/raspberry-rose-jam.jpeg", price: 510, category: "Варенье", weight: "250 г", 
+  { id: 16,title: "Малина и роза", image: "images/raspberry-rose-jam.jpeg", price: 510, category: "Варенье", weight: "250 г", 
     description: "Ароматное малиновое варенье с целыми ягодами и нежными лепестками розы",
     tags: ["Необычные вкусы"], },
-  { title: "Малиновый сироп", image: "images/raspberry-syrup.jpeg", price: 360, category: "Сиропы и напитки", weight: "250 мл", 
+  { id: 17,title: "Малиновый сироп", image: "images/raspberry-syrup.jpeg", price: 360, category: "Сиропы и напитки", weight: "250 мл", 
     description: "Концентрированный ягодный сироп для чая, лимонадов и десертов" },
-  { title: "Облепиховое варенье", image: "images/sea-buckthorn-jam.png", price: 450, category: "Варенье", weight: "250 г", 
+  { id: 18,title: "Облепиховое варенье", image: "images/sea-buckthorn-jam.png", price: 450, category: "Варенье", weight: "250 г", 
     description: "Яркое золотистое варенье из облепихи с приятной ягодной кислинкой",
     tags: ["Необычные вкусы"], },
-  { title: "Клубничное варенье", image: "images/strawberry-jam.jpeg", price: 410, category: "Варенье", weight: "250 г", 
+  { id: 19,title: "Клубничное варенье", image: "images/strawberry-jam.jpeg", price: 410, category: "Варенье", weight: "250 г", 
     description: "Нежное варенье из спелой клубники с насыщенным летним ароматом" },
-  { title: "Томатный соус с чили", image: "images/tomato-chili-sauce.jpeg", price: 480, category: "Соусы и чатни", weight: "200 г", 
+  { id: 20,title: "Томатный соус с чили", image: "images/tomato-chili-sauce.jpeg", price: 480, category: "Соусы и чатни", weight: "200 г", 
     description: "Густой томатный соус с насыщенным вкусом и умеренной остротой чили",
     tags: ["Необычные вкусы"], },
 ];
@@ -256,6 +256,10 @@ const catalogCount = document.querySelector("#catalog-count");
 const searchInput = document.querySelector("#search-input");
 const searchForm = document.querySelector("#search-form");
 const catalogSection = document.querySelector("#catalog");
+const headerCartCount = document.querySelector("#header-cart-count");
+const headerCartTotal = document.querySelector("#header-cart-total");
+
+let cart = [];
 
 let activeCategory = "Все";
 
@@ -264,9 +268,14 @@ function renderProducts(items) {
   catalogCount.textContent = `Найдено: ${items.length}`;
 
   items.forEach((product) => {
+    const cartItem = cart.find(
+      (item) => item.productId === product.id,
+    );
+
+    const quantity = cartItem ? cartItem.quantity : 0;
     const card = document.createElement("article");
     card.className = "product-card";
-
+    
     card.innerHTML = `
       <div class="product-card__image-wrap">
         <img
@@ -283,18 +292,147 @@ function renderProducts(items) {
         <p class="product-card__description">${product.description}</p>
         <p class="product-card__weight">${product.weight}</p>
 
-        <div class="product-card__footer">
-          <p class="product-card__price">
-            ${product.price.toLocaleString("ru-RU")} ₽
-          </p>
-          <button type="button">Добавить в корзину</button>
+
+
+      <div class="product-card__footer">
+        <p class="product-card__price">
+          ${product.price.toLocaleString("ru-RU")} ₽
+        </p>
+
+        <div class="product-card__cart-control">
+          ${
+            quantity === 0
+              ? `
+                <button
+                  class="add-button"
+                  type="button"
+                  data-cart-action="add"
+                  data-product-id="${product.id}"
+                >
+                  Добавить в корзину
+                </button>
+              `
+              : `
+                <div
+                  class="quantity-control"
+                  aria-label="Количество товара ${product.title}"
+                >
+                  <button
+                    class="quantity-control__button"
+                    type="button"
+                    data-cart-action="decrease"
+                    data-product-id="${product.id}"
+                    aria-label="Уменьшить количество"
+                  >
+                    −
+                  </button>
+
+                  <span class="quantity-control__value">
+                    ${quantity} шт.
+                  </span>
+
+                  <button
+                    class="quantity-control__button"
+                    type="button"
+                    data-cart-action="increase"
+                    data-product-id="${product.id}"
+                    aria-label="Увеличить количество"
+                  >
+                    +
+                  </button>
+                </div>
+              `
+          }
         </div>
+      </div>
       </div>
     `;
 
     catalogGrid.append(card);
   });
 }
+
+function updateHeaderCart() {
+  const totalCount = cart.reduce((sum, item) => {
+    return sum + item.quantity;
+  }, 0);
+
+  const totalPrice = cart.reduce((sum, item) => {
+    const product = products.find(
+      (product) => product.id === item.productId,
+    );
+
+    return sum + product.price * item.quantity;
+  }, 0);
+
+  headerCartCount.textContent = totalCount;
+  headerCartTotal.textContent =
+    `${totalPrice.toLocaleString("ru-RU")} ₽`;
+}
+
+function changeCartQuantity(productId, change) {
+  const existingItem = cart.find(
+    (item) => item.productId === productId,
+  );
+
+  if (existingItem) {
+    existingItem.quantity += change;
+  } else if (change > 0) {
+    cart.push({
+      productId: productId,
+      quantity: 1,
+    });
+  }
+
+  cart = cart.filter((item) => item.quantity > 0);
+
+  updateHeaderCart();
+  updateCatalog();
+}
+
+catalogGrid.addEventListener("click", (event) => {
+  const controlButton = event.target.closest(
+    "[data-cart-action]",
+  );
+
+  if (!controlButton) {
+    return;
+  }
+
+  const productId = Number(
+    controlButton.dataset.productId,
+  );
+
+  const action = controlButton.dataset.cartAction;
+
+  if (action === "add" || action === "increase") {
+    changeCartQuantity(productId, 1);
+  }
+
+  if (action === "decrease") {
+    changeCartQuantity(productId, -1);
+  }
+});
+
+catalogGrid.addEventListener("click", (event) => {
+  const addButton = event.target.closest(".add-button");
+
+  if (!addButton) {
+    return;
+  }
+
+  const productId = Number(addButton.dataset.productId);
+
+  addToCart(productId);
+
+  addButton.textContent = "Добавлено ✓";
+  addButton.classList.add("is-added");
+
+  setTimeout(() => {
+    addButton.textContent = "Добавить в корзину";
+    addButton.classList.remove("is-added");
+  }, 900);
+});
 
 function updateCatalog() {
   const searchText = searchInput.value.trim().toLocaleLowerCase("ru-RU");

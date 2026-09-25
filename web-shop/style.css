@@ -891,3 +891,51 @@ input:focus-visible {
     grid-template-columns: 1fr;
   }
 }
+
+.add-button.is-added {
+  color: var(--color-primary-dark);
+  background: var(--color-primary-light);
+}
+
+/* обработка добавления товара в корзину */
+.product-card__cart-control {
+  margin-left: auto;
+}
+
+.quantity-control {
+  display: flex;
+  align-items: center;
+  min-height: 42px;
+  overflow: hidden;
+  color: var(--color-primary-dark);
+  background: var(--color-primary-light);
+  border-radius: 999px;
+}
+
+.product-card .quantity-control__button {
+  width: 42px;
+  min-height: 42px;
+  margin: 0;
+  padding: 0;
+  color: var(--color-primary-dark);
+  background: transparent;
+  border: 0;
+  border-radius: 0;
+  font-size: 21px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.product-card .quantity-control__button:hover {
+  color: #ffffff;
+  background: var(--color-primary);
+}
+
+.quantity-control__value {
+  min-width: 54px;
+  padding: 0 5px;
+  font-size: 14px;
+  font-weight: 700;
+  text-align: center;
+  white-space: nowrap;
+}
