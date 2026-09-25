@@ -147,5 +147,32 @@
         </section>
       </main>
     </div>
+    <dialog
+      class="cart-modal"
+      id="cart-dialog"
+      aria-labelledby="cart-title"
+    >
+      <div class="cart-modal__panel">
+        <header class="cart-modal__header">
+          <div>
+            <p class="cart-modal__eyebrow">Ваш заказ</p>
+            <h2 id="cart-title">Корзина</h2>
+          </div>
+
+          <button
+            class="cart-modal__close"
+            id="close-cart-button"
+            type="button"
+            aria-label="Закрыть корзину"
+          >
+            ×
+          </button>
+        </header>
+
+        <div class="cart-modal__content" id="cart-content">
+          Здесь будут отображаться добавленные товары.
+        </div>
+      </div>
+    </dialog>
   </body>
 </html>

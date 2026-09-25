@@ -122,6 +122,23 @@ const descriptionElement = document.querySelector("#hero-description");
 const priceElement = document.querySelector("#hero-price");
 const imageElement = document.querySelector("#hero-image");
 const flavorButtons = document.querySelectorAll(".flavor-hero__flavor");
+const openCartButton = document.querySelector(
+  "#open-cart-button",
+);
+
+const closeCartButton = document.querySelector(
+  "#close-cart-button",
+);
+
+const cartDialog = document.querySelector(
+  "#cart-dialog",
+);
+
+const cartContent = document.querySelector(
+  "#cart-content",
+);
+
+
 
 // длительность работы баннера - 5 секунд
 const HERO_CHANGE_DELAY = 5000;
@@ -195,6 +212,22 @@ flavorButtons.forEach((button, index) => {
 
 heroPicture.addEventListener("mouseenter", stopHeroTimer);
 heroPicture.addEventListener("mouseleave", startHeroTimer);
+
+openCartButton.addEventListener("click", () => {
+  if (!cartDialog.open) {
+    cartDialog.showModal();
+  }
+});
+
+closeCartButton.addEventListener("click", () => {
+  cartDialog.close();
+});
+
+cartDialog.addEventListener("click", (event) => {
+  if (event.target === cartDialog) {
+    cartDialog.close();
+  }
+});
 
 applyHeroFlavor(0, false);
 startHeroTimer();
