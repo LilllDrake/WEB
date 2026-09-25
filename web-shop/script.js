@@ -253,6 +253,11 @@ const products = [
 const catalogGrid = document.querySelector("#catalog-grid");
 const categoryButtons = document.querySelectorAll(".sidebar__link[data-category]");
 const catalogCount = document.querySelector("#catalog-count");
+const searchInput = document.querySelector("#search-input");
+const searchForm = document.querySelector("#search-form");
+const catalogSection = document.querySelector("#catalog");
+
+let activeCategory = "Все";
 
 function renderProducts(items) {
   catalogGrid.innerHTML = "";
@@ -291,22 +296,34 @@ function renderProducts(items) {
   });
 }
 
-// При открытии страницы показываем все товары.
-renderProducts(products);
+function updateCatalog() {
+  const searchText = searchInput.value.trim().toLocaleLowerCase("ru-RU");
+
+  const visibleProducts = products.filter((product) => {
+    const matchesCategory =
+      activeCategory === "Все" ||
+      product.category === activeCategory ||
+      product.tags?.includes(activeCategory);
+
+    const searchableText =
+      `${product.title} ${product.category} ${product.description}`
+        .toLocaleLowerCase("ru-RU");
+
+    const matchesSearch = searchableText.includes(searchText);
+
+    return matchesCategory && matchesSearch;
+  });
+
+  renderProducts(visibleProducts);
+}
+
+
+// Первый вывод товаров при открытии страницы.
+updateCatalog();
 
 categoryButtons.forEach((button) => {
   button.addEventListener("click", () => {
-    const selectedCategory = button.dataset.category;
-
-    const visibleProducts =
-      selectedCategory === "Все"
-        ? products
-        : products.filter(
-            (product) => product.category === selectedCategory ||
-            product.tags?.includes(selectedCategory),
-          );
-
-    renderProducts(visibleProducts);
+    activeCategory = button.dataset.category;
 
     categoryButtons.forEach((categoryButton) => {
       categoryButton.classList.toggle(
@@ -314,7 +331,22 @@ categoryButtons.forEach((button) => {
         categoryButton === button,
       );
     });
+
+    updateCatalog();
+
+    catalogSection.scrollIntoView({
+      behavior: "smooth",
+      block: "start",
+    });
   });
+});
+
+// Обновляем каталог при каждом изменении текста в поиске.
+searchInput.addEventListener("input", updateCatalog);
+
+// Не даём форме перезагрузить страницу при нажатии Enter.
+searchForm.addEventListener("submit", (event) => {
+  event.preventDefault();
 });
 
 // создание карточки
