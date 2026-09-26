@@ -329,7 +329,42 @@ const catalogSection = document.querySelector("#catalog");
 const headerCartCount = document.querySelector("#header-cart-count");
 const headerCartTotal = document.querySelector("#header-cart-total");
 
-let cart = [];
+const CART_STORAGE_KEY = "jam-store-cart";
+
+function loadCart() {
+  try {
+    const savedCart = JSON.parse(
+      localStorage.getItem(CART_STORAGE_KEY),
+    );
+
+    if (!Array.isArray(savedCart)) {
+      return [];
+    }
+
+    return savedCart.filter((item) => {
+      const productExists = products.some(
+        (product) => product.id === item.productId,
+      );
+
+      const quantityIsCorrect =
+        Number.isInteger(item.quantity) &&
+        item.quantity > 0;
+
+      return productExists && quantityIsCorrect;
+    });
+  } catch (error) {
+    return [];
+  }
+}
+
+function saveCart() {
+  localStorage.setItem(
+    CART_STORAGE_KEY,
+    JSON.stringify(cart),
+  );
+}
+
+let cart = loadCart();
 
 let activeCategory = "Все";
 
@@ -578,6 +613,7 @@ function changeCartQuantity(productId, change) {
 
   cart = cart.filter((item) => item.quantity > 0);
 
+  saveCart();
   updateHeaderCart();
   updateCatalog();
   renderCart();
@@ -588,6 +624,7 @@ function removeFromCart(productId) {
     (item) => item.productId !== productId,
   );
 
+  saveCart();
   updateHeaderCart();
   updateCatalog();
   renderCart();
@@ -642,6 +679,7 @@ function updateCatalog() {
 
 // Первый вывод товаров при открытии страницы.
 updateCatalog();
+updateHeaderCart();
 
 categoryButtons.forEach((button) => {
   button.addEventListener("click", () => {
@@ -726,6 +764,7 @@ orderForm.addEventListener("submit", (event) => {
   event.preventDefault();
 
   cart = [];
+  saveCart();
 
   updateHeaderCart();
   updateCatalog();
