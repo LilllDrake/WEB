@@ -214,6 +214,8 @@ heroPicture.addEventListener("mouseenter", stopHeroTimer);
 heroPicture.addEventListener("mouseleave", startHeroTimer);
 
 openCartButton.addEventListener("click", () => {
+  renderCart();
+
   if (!cartDialog.open) {
     cartDialog.showModal();
   }
@@ -385,22 +387,143 @@ function renderProducts(items) {
   });
 }
 
-function updateHeaderCart() {
-  const totalCount = cart.reduce((sum, item) => {
+function getProduct(productId) {
+  return products.find(
+    (product) => product.id === productId,
+  );
+}
+
+function getCartCount() {
+  return cart.reduce((sum, item) => {
     return sum + item.quantity;
   }, 0);
+}
 
-  const totalPrice = cart.reduce((sum, item) => {
-    const product = products.find(
-      (product) => product.id === item.productId,
-    );
+function getCartTotal() {
+  return cart.reduce((sum, item) => {
+    const product = getProduct(item.productId);
 
     return sum + product.price * item.quantity;
   }, 0);
+}
 
-  headerCartCount.textContent = totalCount;
+function updateHeaderCart() {
+  headerCartCount.textContent = getCartCount();
+
   headerCartTotal.textContent =
-    `${totalPrice.toLocaleString("ru-RU")} ₽`;
+    `${getCartTotal().toLocaleString("ru-RU")} ₽`;
+}
+
+function renderCart() {
+  if (cart.length === 0) {
+    cartContent.innerHTML = `
+      <div class="cart-empty">
+        <div class="cart-empty__icon" aria-hidden="true">
+          🧺
+        </div>
+
+        <h3>Корзина пуста</h3>
+
+        <p>
+          Добавьте хотя бы один товар из каталога.
+        </p>
+
+        <button
+          class="cart-empty__button"
+          type="button"
+          data-cart-action="catalog"
+        >
+          Перейти в каталог
+        </button>
+      </div>
+    `;
+
+    return;
+  }
+
+  const cartItems = cart
+    .map((item) => {
+      const product = getProduct(item.productId);
+
+      return `
+        <article class="cart-item">
+          <img
+            class="cart-item__image"
+            src="${product.image}"
+            alt="${product.title}"
+          />
+
+          <div class="cart-item__info">
+            <h3>${product.title}</h3>
+            <p>${product.weight}</p>
+
+            <strong>
+              ${(product.price * item.quantity)
+                .toLocaleString("ru-RU")} ₽
+            </strong>
+          </div>
+
+          <div class="cart-item__quantity">
+            <button
+              type="button"
+              data-cart-action="decrease"
+              data-product-id="${product.id}"
+              aria-label="Уменьшить количество"
+            >
+              −
+            </button>
+
+            <span>${item.quantity} шт.</span>
+
+            <button
+              type="button"
+              data-cart-action="increase"
+              data-product-id="${product.id}"
+              aria-label="Увеличить количество"
+            >
+              +
+            </button>
+          </div>
+
+          <button
+            class="cart-item__remove"
+            type="button"
+            data-cart-action="remove"
+            data-product-id="${product.id}"
+          >
+            Удалить
+          </button>
+        </article>
+      `;
+    })
+    .join("");
+
+  cartContent.innerHTML = `
+    <div class="cart-list">
+      ${cartItems}
+    </div>
+
+    <div class="cart-summary">
+      <div class="cart-summary__row">
+        <span>Количество</span>
+        <strong>${getCartCount()} шт.</strong>
+      </div>
+
+      <div class="cart-summary__row cart-summary__row--total">
+        <span>Итого</span>
+        <strong>
+          ${getCartTotal().toLocaleString("ru-RU")} ₽
+        </strong>
+      </div>
+
+      <button
+        class="cart-summary__button"
+        type="button"
+      >
+        Оформить заказ
+      </button>
+    </div>
+  `;
 }
 
 function changeCartQuantity(productId, change) {
@@ -421,6 +544,17 @@ function changeCartQuantity(productId, change) {
 
   updateHeaderCart();
   updateCatalog();
+  renderCart();
+}
+
+function removeFromCart(productId) {
+  cart = cart.filter(
+    (item) => item.productId !== productId,
+  );
+
+  updateHeaderCart();
+  updateCatalog();
+  renderCart();
 }
 
 catalogGrid.addEventListener("click", (event) => {
@@ -552,4 +686,41 @@ card.innerHTML = `
 `;
 
   catalogGrid.append(card);
+});
+
+cartContent.addEventListener("click", (event) => {
+  const actionButton = event.target.closest(
+    "[data-cart-action]",
+  );
+
+  if (!actionButton) {
+    return;
+  }
+
+  const action = actionButton.dataset.cartAction;
+
+  const productId = Number(
+    actionButton.dataset.productId,
+  );
+
+  if (action === "increase") {
+    changeCartQuantity(productId, 1);
+  }
+
+  if (action === "decrease") {
+    changeCartQuantity(productId, -1);
+  }
+
+  if (action === "remove") {
+    removeFromCart(productId);
+  }
+
+  if (action === "catalog") {
+    cartDialog.close();
+
+    catalogSection.scrollIntoView({
+      behavior: "smooth",
+      block: "start",
+    });
+  }
 });
