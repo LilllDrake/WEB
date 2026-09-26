@@ -138,6 +138,33 @@ const cartContent = document.querySelector(
   "#cart-content",
 );
 
+const orderDialog = document.querySelector(
+  "#order-dialog",
+);
+
+const closeOrderButton = document.querySelector(
+  "#close-order-button",
+);
+
+const orderForm = document.querySelector(
+  "#order-form",
+);
+
+const orderTotal = document.querySelector(
+  "#order-total",
+);
+
+function openOrderForm() {
+  if (cart.length === 0) {
+    return;
+  }
+
+  orderTotal.textContent =
+    `${getCartTotal().toLocaleString("ru-RU")} ₽`;
+
+  cartDialog.close();
+  orderDialog.showModal();
+}
 
 
 // длительность работы баннера - 5 секунд
@@ -519,6 +546,7 @@ function renderCart() {
       <button
         class="cart-summary__button"
         type="button"
+        data-cart-action="checkout"
       >
         Оформить заказ
       </button>
@@ -581,25 +609,6 @@ catalogGrid.addEventListener("click", (event) => {
   }
 });
 
-catalogGrid.addEventListener("click", (event) => {
-  const addButton = event.target.closest(".add-button");
-
-  if (!addButton) {
-    return;
-  }
-
-  const productId = Number(addButton.dataset.productId);
-
-  addToCart(productId);
-
-  addButton.textContent = "Добавлено ✓";
-  addButton.classList.add("is-added");
-
-  setTimeout(() => {
-    addButton.textContent = "Добавить в корзину";
-    addButton.classList.remove("is-added");
-  }, 900);
-});
 
 function updateCatalog() {
   const searchText = searchInput.value.trim().toLocaleLowerCase("ru-RU");
@@ -654,40 +663,6 @@ searchForm.addEventListener("submit", (event) => {
   event.preventDefault();
 });
 
-// создание карточки
-products.forEach((product) => {
-  const card = document.createElement("article");
-  card.className = "product-card";
-
-card.innerHTML = `
-  <div class="product-card__image-wrap">
-    <img
-      class="product-card__image"
-      src="${product.image}"
-      alt="${product.title}"
-      loading="lazy"
-    />
-    <span class="product-card__category">${product.category}</span>
-  </div>
-
-  <div class="product-card__body">
-    <h3 class="product-card__title">${product.title}</h3>
-    <p class="product-card__description">${product.description}</p>
-    <p class="product-card__weight">${product.weight}</p>
-    
-    
-    <div class="product-card__footer">
-      <p class="product-card__price">
-        ${product.price.toLocaleString("ru-RU")} ₽
-      </p>
-      <button type="button">Добавить в корзину</button>
-    </div>
-  </div>
-`;
-
-  catalogGrid.append(card);
-});
-
 cartContent.addEventListener("click", (event) => {
   const actionButton = event.target.closest(
     "[data-cart-action]",
@@ -723,4 +698,22 @@ cartContent.addEventListener("click", (event) => {
       block: "start",
     });
   }
+
+  if (action === "checkout") {
+    openOrderForm();
+  }
+});
+
+closeOrderButton.addEventListener("click", () => {
+  orderDialog.close();
+});
+
+orderDialog.addEventListener("click", (event) => {
+  if (event.target === orderDialog) {
+    orderDialog.close();
+  }
+});
+
+orderForm.addEventListener("submit", (event) => {
+  event.preventDefault();
 });

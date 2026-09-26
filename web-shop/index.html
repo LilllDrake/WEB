@@ -174,5 +174,107 @@
         </div>
       </div>
     </dialog>
+
+    <dialog
+      class="order-modal"
+      id="order-dialog"
+      aria-labelledby="order-title"
+    >
+      <div class="order-modal__panel">
+        <header class="order-modal__header">
+          <div>
+            <p class="order-modal__eyebrow">
+              Последний шаг
+            </p>
+
+            <h2 id="order-title">
+              Оформление заказа
+            </h2>
+          </div>
+
+          <button
+            class="order-modal__close"
+            id="close-order-button"
+            type="button"
+            aria-label="Закрыть оформление заказа"
+          >
+            ×
+          </button>
+        </header>
+
+        <form class="order-form" id="order-form">
+          <div class="order-form__row">
+            <div class="form-field">
+              <label for="first-name">Имя</label>
+
+              <input
+                id="first-name"
+                name="firstName"
+                type="text"
+                placeholder="Анна"
+                autocomplete="given-name"
+                required
+              />
+            </div>
+
+            <div class="form-field">
+              <label for="last-name">Фамилия</label>
+
+              <input
+                id="last-name"
+                name="lastName"
+                type="text"
+                placeholder="Иванова"
+                autocomplete="family-name"
+                required
+              />
+            </div>
+          </div>
+
+          <div class="form-field">
+            <label for="address">
+              Адрес доставки
+            </label>
+
+            <input
+              id="address"
+              name="address"
+              type="text"
+              placeholder="Улица, дом, квартира"
+              autocomplete="street-address"
+              required
+            />
+          </div>
+
+          <div class="form-field">
+            <label for="order-phone">
+              Контактный номер телефона
+            </label>
+
+            <input
+              id="order-phone"
+              name="phone"
+              type="tel"
+              placeholder="+7 999 123-45-67"
+              autocomplete="tel"
+              minlength="10"
+              required
+            />
+          </div>
+
+          <div class="order-form__summary">
+            <span>Сумма заказа</span>
+            <strong id="order-total">0 ₽</strong>
+          </div>
+
+          <button
+            class="order-form__submit"
+            type="submit"
+          >
+            Создать заказ
+          </button>
+        </form>
+      </div>
+    </dialog>
   </body>
 </html>
