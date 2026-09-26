@@ -154,6 +154,14 @@ const orderTotal = document.querySelector(
   "#order-total",
 );
 
+const successDialog = document.querySelector(
+  "#success-dialog",
+);
+
+const closeSuccessButton = document.querySelector(
+  "#close-success-button",
+);
+
 function openOrderForm() {
   if (cart.length === 0) {
     return;
@@ -716,4 +724,29 @@ orderDialog.addEventListener("click", (event) => {
 
 orderForm.addEventListener("submit", (event) => {
   event.preventDefault();
+
+  cart = [];
+
+  updateHeaderCart();
+  updateCatalog();
+  renderCart();
+
+  orderForm.reset();
+  orderDialog.close();
+  successDialog.showModal();
+});
+
+closeSuccessButton.addEventListener("click", () => {
+  successDialog.close();
+
+  catalogSection.scrollIntoView({
+    behavior: "smooth",
+    block: "start",
+  });
+});
+
+successDialog.addEventListener("click", (event) => {
+  if (event.target === successDialog) {
+    successDialog.close();
+  }
 });

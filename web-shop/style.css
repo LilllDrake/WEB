@@ -1261,3 +1261,60 @@ body:has(dialog[open]) {
 .order-form__submit:hover {
   background: var(--color-primary-dark);
 }
+
+.success-modal {
+  width: min(440px, calc(100% - 32px));
+  padding: 0;
+  background: transparent;
+  border: 0;
+  border-radius: var(--radius-medium);
+}
+
+.success-modal::backdrop {
+  background: rgba(43, 24, 32, 0.65);
+  backdrop-filter: blur(4px);
+}
+
+.success-modal__panel {
+  padding: 40px 28px;
+  text-align: center;
+  background: #ffffff;
+  border-radius: var(--radius-medium);
+}
+
+.success-modal__icon {
+  display: grid;
+  place-items: center;
+  width: 72px;
+  height: 72px;
+  margin: 0 auto 18px;
+  color: #ffffff;
+  background: var(--color-primary);
+  border-radius: 50%;
+  font-size: 38px;
+  font-weight: 700;
+}
+
+.success-modal__panel h2 {
+  margin-bottom: 10px;
+  font-size: 30px;
+}
+
+.success-modal__panel p {
+  margin-bottom: 24px;
+  color: var(--color-muted);
+}
+
+.success-modal__button {
+  padding: 12px 22px;
+  color: #ffffff;
+  background: var(--color-primary);
+  border: 0;
+  border-radius: 999px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.success-modal__button:hover {
+  background: var(--color-primary-dark);
+}
