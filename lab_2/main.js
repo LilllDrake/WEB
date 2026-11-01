@@ -7,6 +7,8 @@ styleLink.href = 'style.css';
 document.head.append(styleLink);
 document.title = 'Доска задач';
 
+const STORAGE_KEY = 'todo-board-tasks'; // ключ в localStorage
+
 // цвета стикеров: value -> css-класс color-*, label -> подсказка
 const COLORS = [
   { value: 'yellow', label: 'Жёлтый' },
@@ -15,13 +17,7 @@ const COLORS = [
   { value: 'green', label: 'Зелёный' },
 ];
 
-// пока тестовые задачи, чтобы видеть вёрстку 
-let tasks = [
-  { id: '1', text: 'Сдать лабу по вебу', date: '2026-12-04', done: false, color: 'pink' },
-  { id: '2', text: 'Прочитать про DOM', date: '2026-11-20', done: false, color: 'blue' },
-  { id: '3', text: 'Купить хлеб', date: '2026-10-10', done: false, color: 'yellow' },
-  { id: '4', text: 'Задача без срока', date: '', done: false, color: 'green' },
-];
+let tasks = loadTasks(); // массив задач, его порядок = порядок на доске
 
 
 // ===== 2. Помощники =====
@@ -35,11 +31,12 @@ function createEl(tag, className, text) {
 }
 
 // маленькая кнопка-иконка на стикере
-function createIconButton(icon, label) {
+function createIconButton(icon, label, onClick) {
   const button = createEl('button', 'icon-button', icon);
   button.type = 'button';
   button.title = label;                     // всплывающая подсказка
   button.setAttribute('aria-label', label); // для скринридера
+  if (onClick) button.addEventListener('click', onClick);
   return button;
 }
 
@@ -196,7 +193,7 @@ function createSticker(task) {
 
   const actions = createEl('div', 'sticker__actions');
   const editButton = createIconButton('✎', 'Редактировать');
-  const deleteButton = createIconButton('✕', 'Удалить');
+  const deleteButton = createIconButton('✕', 'Удалить', () => deleteTask(task.id));
   actions.append(editButton, deleteButton);
 
   bottom.append(date, actions);
@@ -205,6 +202,58 @@ function createSticker(task) {
 }
 
 
-// ===== 5. Первый запуск =====
+// ===== 5. Действия с задачами =====
+
+function addTask(text, date, color) {
+  tasks.unshift({
+    id: String(Date.now()), // время в мс — уникально для ручного ввода
+    text,
+    date,                   // '' если срок не выбран
+    done: false,
+    color,
+  });
+  saveTasks();
+  render();
+}
+
+function deleteTask(id) {
+  tasks = tasks.filter((task) => task.id !== id);
+  saveTasks();
+  render();
+}
+
+
+// ===== 6. localStorage =====
+
+function saveTasks() {
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(tasks)); // хранит только строки
+}
+
+function loadTasks() {
+  try {
+    const saved = JSON.parse(localStorage.getItem(STORAGE_KEY));
+    return Array.isArray(saved) ? saved : [];
+  } catch {
+    return []; // битые данные — начинаем с пустой доски
+  }
+}
+
+
+// ===== 7. События и первый запуск =====
+
+addForm.addEventListener('submit', (event) => {
+  event.preventDefault(); // форма не перезагружает страницу
+  const text = textInput.value.trim();
+  if (!text) {
+    textInput.value = '';
+    textInput.focus();
+    return;
+  }
+  const color = addForm.elements.color.value; // значение выбранного radio
+  addTask(text, dateInput.value, color);
+  textInput.value = '';
+  dateInput.value = '';
+  textInput.focus();
+});
 
 render();
