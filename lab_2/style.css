@@ -1,8 +1,8 @@
 /* рукописный шрифт для заголовка и текста стикеров */
 @import url('https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&display=swap');
-
+ 
 /* ===== Общие ===== */
-
+ 
 :root {
   --bg: #f3ede2;       /* фон «доски» */
   --panel: #fffdf8;
@@ -13,11 +13,11 @@
   --accent-hover: #c4552e;
   --danger: #c0392b;
 }
-
+ 
 * {
   box-sizing: border-box; /* padding не раздувает ширину */
 }
-
+ 
 body {
   margin: 0;
   font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
@@ -25,7 +25,7 @@ body {
   color: var(--text);
   line-height: 1.4;
 }
-
+ 
 /* прячет элемент визуально, но скринридер его читает */
 .visually-hidden {
   position: absolute;
@@ -35,9 +35,9 @@ body {
   clip-path: inset(50%);
   white-space: nowrap;
 }
-
+ 
 /* ===== Шапка, main, подвал ===== */
-
+ 
 .header,
 .main,
 .footer {
@@ -46,7 +46,7 @@ body {
   padding-left: 16px;
   padding-right: 16px;
 }
-
+ 
 .header {
   display: flex;
   flex-wrap: wrap;
@@ -56,24 +56,24 @@ body {
   padding-top: 24px;
   padding-bottom: 8px;
 }
-
+ 
 .header__title {
   margin: 0;
   font-family: 'Caveat', cursive;
   font-size: 48px;
 }
-
+ 
 .header__counter {
   margin: 0;
   color: var(--muted);
 }
-
+ 
 .main {
   display: flex;
   flex-direction: column;
   gap: 16px;
 }
-
+ 
 .footer {
   padding-top: 32px;
   padding-bottom: 24px;
@@ -81,21 +81,21 @@ body {
   font-size: 13px;
   color: var(--muted);
 }
-
+ 
 /* ===== Панели, поля, кнопки ===== */
-
+ 
 .panel {
   background: var(--panel);
   border: 1px solid var(--border);
   border-radius: 12px;
   padding: 16px;
 }
-
+ 
 .panel__title {
   margin: 0 0 12px;
   font-size: 16px;
 }
-
+ 
 .add-form,
 .tools {
   display: flex;
@@ -103,12 +103,12 @@ body {
   align-items: center;
   gap: 10px;
 }
-
+ 
 .add-form__text,
 .tools__search {
   flex: 1 1 220px; /* растягивается, но не уже 220px */
 }
-
+ 
 .input,
 .button {
   min-height: 40px;
@@ -119,34 +119,34 @@ body {
   color: inherit;
   font: inherit;
 }
-
+ 
 .button {
   cursor: pointer;
 }
-
+ 
 .button:hover {
   background: #f6f1e9;
 }
-
+ 
 .button--primary {
   border-color: var(--accent);
   background: var(--accent);
   color: #fff;
 }
-
+ 
 .button--primary:hover {
   background: var(--accent-hover);
 }
-
+ 
 .input:focus,
 .button:focus-visible,
 .icon-button:focus-visible {
   outline: 2px solid var(--accent);
   outline-offset: 1px;
 }
-
+ 
 /* ===== Выбор цвета ===== */
-
+ 
 .colors {
   display: flex;
   gap: 8px;
@@ -154,7 +154,7 @@ body {
   padding: 0;
   border: 0;
 }
-
+ 
 .colors__item {
   appearance: none; /* убираем стандартный кружок radio */
   width: 28px;
@@ -165,19 +165,19 @@ body {
   background: var(--sticker);
   cursor: pointer;
 }
-
+ 
 .colors__item:checked {
   box-shadow: 0 0 0 2px var(--panel), 0 0 0 4px var(--text); /* кольцо вокруг */
 }
-
+ 
 /* цвета стикеров: класс задаёт переменную --sticker */
 .color-yellow { --sticker: #fff3a3; }
 .color-pink   { --sticker: #ffd6e0; }
 .color-blue   { --sticker: #cfe8ff; }
 .color-green  { --sticker: #d6f5cb; }
-
+ 
 /* ===== Доска и стикеры ===== */
-
+ 
 .board {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); /* сколько колонок влезет */
@@ -186,7 +186,7 @@ body {
   padding: 8px 0 0;
   list-style: none;
 }
-
+ 
 .board-empty {
   margin: 0;
   padding: 40px 0;
@@ -195,7 +195,7 @@ body {
   font-size: 28px;
   color: var(--muted);
 }
-
+ 
 .sticker {
   display: flex;
   flex-direction: column;
@@ -209,16 +209,16 @@ body {
   transition: transform 0.15s, box-shadow 0.15s;
   cursor: grab;
 }
-
+ 
 .sticker:nth-child(even) {
   transform: rotate(1deg);
 }
-
+ 
 .sticker:hover {
   transform: rotate(0) translateY(-2px);
   box-shadow: 0 6px 14px rgba(0, 0, 0, 0.15);
 }
-
+ 
 .sticker__check {
   display: flex;
   align-items: center;
@@ -228,7 +228,7 @@ body {
   color: var(--muted);
   cursor: pointer;
 }
-
+ 
 .sticker__text {
   flex: 1; /* занимает свободное место, низ прижат вниз */
   margin: 0;
@@ -237,29 +237,29 @@ body {
   line-height: 1.15;
   overflow-wrap: anywhere; /* длинные слова переносятся */
 }
-
+ 
 .sticker__bottom {
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 8px;
 }
-
+ 
 .sticker__date {
   font-size: 14px;
   color: var(--muted);
 }
-
+ 
 .sticker__date--overdue {
   color: var(--danger);
   font-weight: 600;
 }
-
+ 
 .sticker__actions {
   display: flex;
   gap: 4px;
 }
-
+ 
 .icon-button {
   width: 32px;
   height: 32px;
@@ -270,27 +270,59 @@ body {
   font-size: 16px;
   cursor: pointer;
 }
-
+ 
 .icon-button:hover {
   background: rgba(255, 255, 255, 0.95);
 }
-
+ 
+/* ===== Выполнено ===== */
+ 
+.sticker--done {
+  filter: saturate(0.4); /* цвет блекнет */
+}
+ 
+.sticker--done .sticker__text {
+  text-decoration: line-through;
+  color: var(--muted);
+}
+ 
+/* ===== Редактирование ===== */
+ 
+.sticker--editing {
+  cursor: default;
+}
+ 
+.sticker__edit {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+ 
+.sticker__edit-buttons {
+  display: flex;
+  gap: 8px;
+}
+ 
+.sticker__edit-buttons .button {
+  flex: 1;
+}
+ 
 /* ===== Телефон ===== */
-
+ 
 @media (max-width: 600px) {
   .header__title {
     font-size: 38px;
   }
-
+ 
   .add-form > *,
   .tools > * {
     flex: 1 1 100%; /* каждый элемент формы — на всю ширину */
   }
-
+ 
   .board {
     grid-template-columns: 1fr; /* одна колонка стикеров */
   }
-
+ 
   .sticker {
     min-height: 0;
   }
