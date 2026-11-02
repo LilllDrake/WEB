@@ -155,10 +155,24 @@ boardSection.append(board, emptyMessage);
 // подвал
 const footer = createEl('footer', 'footer', 'Задачи сохраняются в этом браузере');
 
+// питомец внизу экрана — для красоты, кадры лежат в папке img
+const PET_FRAMES = {
+  walk: ['img/pet-walk-1.png', 'img/pet-walk-2.png'], // обычный: стоит, прыгает
+  love: ['img/pet-love.png'],                         // радуется новой задаче
+  buff: ['img/pet-buff-1.png', 'img/pet-buff-2.png'], // накачанный
+};
+const pet = createEl('div', 'pet');
+pet.setAttribute('aria-hidden', 'true'); // декорация, скринридеру не нужна
+const petShadow = createEl('div', 'pet__shadow');
+const petImg = createEl('img', 'pet__img');
+petImg.src = PET_FRAMES.walk[0];
+petImg.alt = '';
+pet.append(petShadow, petImg);
+
 // собираем страницу
 const main = createEl('main', 'main');
 main.append(addSection, toolsSection, boardSection);
-document.body.append(header, main, footer);
+document.body.append(header, main, footer, pet);
 
 
 // ===== 4. Отрисовка =====
@@ -291,6 +305,7 @@ function addTask(text, date, color) {
   });
   saveTasks();
   render();
+  celebrate(); // питомец радуется новой задаче
 }
 
 function deleteTask(id) {
@@ -422,7 +437,47 @@ function addDragAndDrop(li, id) {
 }
 
 
-// ===== 8. События и первый запуск =====
+// ===== 8. Питомец =====
+
+let petMode = 'walk'; // walk | love | buff
+let petFrame = 0;     // номер кадра в текущем режиме
+let petTimer = null;  // таймер смены режима
+
+// заранее загружаем все кадры, чтобы при смене не мигало
+Object.values(PET_FRAMES).flat().forEach((src) => {
+  const img = new Image();
+  img.src = src;
+});
+
+function setPetMode(mode) {
+  petMode = mode;
+  petFrame = 0;
+  petImg.src = PET_FRAMES[mode][0];
+}
+
+// следующий кадр по кругу: 0, 1, 0, 1...
+function nextPetFrame() {
+  const frames = PET_FRAMES[petMode];
+  petFrame = (petFrame + 1) % frames.length;
+  petImg.src = frames[petFrame];
+}
+
+//  прыжок с сердечком -> 5 с накачанный -> обычный
+function celebrate() {
+  clearTimeout(petTimer); // если уже радуется — начинаем заново
+  setPetMode('love');
+  pet.classList.add('pet--jump');
+  petTimer = setTimeout(() => {
+    pet.classList.remove('pet--jump');
+    setPetMode('buff');
+    petTimer = setTimeout(() => setPetMode('walk'), 5000);
+  }, 800);
+}
+
+setInterval(nextPetFrame, 300); // смена кадра каждые 0.3 с
+
+
+// ===== 9. События и первый запуск =====
 
 addForm.addEventListener('submit', (event) => {
   event.preventDefault(); // форма не перезагружает страницу
