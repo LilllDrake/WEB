@@ -22,6 +22,7 @@ let editingId = null;    // id стикера в режиме редактиро
 let filterStatus = 'all'; // all | active | done
 let searchText = '';      // строка поиска
 let sortAsc = true;       // направление следующей сортировки
+let draggedId = null;     // id стикера, который сейчас тащим
 
 
 // ===== 2. Помощники =====
@@ -221,12 +222,18 @@ function createSticker(task) {
   if (isOverdue(task)) date.classList.add('sticker__date--overdue');
 
   const actions = createEl('div', 'sticker__actions');
+  const upButton = createIconButton('↑', 'Переместить выше', () => moveByStep(task.id, -1));
+  const downButton = createIconButton('↓', 'Переместить ниже', () => moveByStep(task.id, 1));
+  upButton.classList.add('sticker__move');   // видны только на телефоне
+  downButton.classList.add('sticker__move');
   const editButton = createIconButton('✎', 'Редактировать', () => startEdit(task.id));
   const deleteButton = createIconButton('✕', 'Удалить', () => deleteTask(task.id));
-  actions.append(editButton, deleteButton);
+  actions.append(upButton, downButton, editButton, deleteButton);
 
   bottom.append(date, actions);
   li.append(checkLabel, text, bottom);
+
+  addDragAndDrop(li, task.id);
   return li;
 }
 
@@ -355,7 +362,67 @@ function loadTasks() {
 }
 
 
-// ===== 7. События и первый запуск =====
+// ===== 7. Перестановка: drag-and-drop и кнопки ↑ ↓ =====
+
+// поставить задачу fromId на место задачи toId
+function moveTask(fromId, toId) {
+  const fromIndex = tasks.findIndex((task) => task.id === fromId);
+  const toIndex = tasks.findIndex((task) => task.id === toId);
+  const [moved] = tasks.splice(fromIndex, 1); // вырезали
+  tasks.splice(toIndex, 0, moved);            // вставили на новое место
+  saveTasks();
+  render();
+}
+
+// кнопки ↑ ↓ (для телефона): шаг -1 или +1 среди видимых задач
+function moveByStep(id, step) {
+  const visible = getVisibleTasks();
+  const index = visible.findIndex((task) => task.id === id);
+  const neighbor = visible[index + step];
+  if (!neighbor) return; // уже первая или последняя
+  moveTask(id, neighbor.id);
+}
+
+function addDragAndDrop(li, id) {
+  li.draggable = true;
+
+  // начали тащить
+  li.addEventListener('dragstart', (event) => {
+    draggedId = id;
+    event.dataTransfer.effectAllowed = 'move';
+    event.dataTransfer.setData('text/plain', id); // без этого не работает в Firefox
+    li.classList.add('sticker--dragging');
+  });
+
+  // тащим над этим стикером
+  li.addEventListener('dragover', (event) => {
+    if (draggedId === null || draggedId === id) return;
+    event.preventDefault(); // разрешаем drop сюда
+    li.classList.add('sticker--over');
+  });
+
+  // ушли со стикера (но не на его же дочерний элемент)
+  li.addEventListener('dragleave', (event) => {
+    if (!li.contains(event.relatedTarget)) li.classList.remove('sticker--over');
+  });
+
+  // отпустили над этим стикером
+  li.addEventListener('drop', (event) => {
+    event.preventDefault();
+    const fromId = draggedId;
+    draggedId = null;
+    moveTask(fromId, id);
+  });
+
+  // перетаскивание закончилось (в т.ч. мимо стикеров)
+  li.addEventListener('dragend', () => {
+    draggedId = null;
+    render(); // убрать подсветку
+  });
+}
+
+
+// ===== 8. События и первый запуск =====
 
 addForm.addEventListener('submit', (event) => {
   event.preventDefault(); // форма не перезагружает страницу
